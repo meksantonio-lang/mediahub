@@ -1,6 +1,6 @@
-export const runtime = 'edge';
 "use client";
 
+export const runtime = 'edge';
 import { use, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download, Heart, BookOpen, CheckCircle } from "lucide-react";
