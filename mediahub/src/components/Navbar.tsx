@@ -5,28 +5,25 @@ import GlobalSearch from "./GlobalSearch";
 
 export default function Navbar() {
   return (
-    <nav className="w-full bg-black/90 backdrop-blur-md border-b border-white/10 z-50 sticky top-0 p-4">
-      <div className="max-w-7xl mx-auto flex justify-between items-center gap-4">
+    <nav className="border-b border-white/5 bg-black/50 backdrop-blur-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
-        {/* Brand */}
-        <Link href="/" className="text-2xl font-bold text-white shrink-0 hover:opacity-80 transition">
-          MediaHub
+        {/* The New Branding */}
+        <Link href="/" className="flex items-center gap-1 group">
+          <span className="text-2xl font-black tracking-tighter text-white uppercase group-hover:text-purple-500 transition-colors">
+            MovieW<span className="inline-block animate-pulse">🌎</span>rld
+          </span>
         </Link>
 
-        {/* Navigation */}
-        <div className="hidden sm:flex gap-8 text-zinc-400 font-semibold text-sm uppercase tracking-widest">
-          <Link href="/" className="hover:text-white transition">Home</Link>
-          <Link href="/music" className="hover:text-white transition">Music</Link>
-          <Link href="/movies" className="hover:text-white transition">Movies</Link>
-          <Link href="/books" className="hover:text-white transition">Books</Link>
-          <Link href="/favorites" className="hover:text-white transition text-rose-500">Favorites</Link>
-        </div>
-
-        {/* Search */}
-        <div className="flex-1 max-w-sm flex justify-end">
+        <div className="flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
+            <Link href="/movies" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest">Movies</Link>
+            <Link href="/music" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest">Music</Link>
+            <Link href="/books" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest">Books</Link>
+            <Link href="/favorites" className="text-sm font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-widest">Library</Link>
+          </div>
           <GlobalSearch />
         </div>
-
       </div>
     </nav>
   );

@@ -4,9 +4,9 @@ import { FavoritesProvider } from "@/context/FavoritesContext";
 
 // This is what Google and Social Media bots read
 export const metadata = {
-  title: "MediaHub | Instant Movies, Books & Music",
+  title: "MovieWorld 🌎 | Movies, Music & Books",
   description: "Download high-quality movies, latest Hollywood, Nollywood, K-drama and Bollywood movies, Download trending Afrobeats, Hip-hop and Pop music, getbest-selling eBooks instantly with no sign-up required.",
-  keywords: ["Movies", "Afrobeats", "Downloads", "eBooks", "MediaHub", "Free Content"],
+  keywords: ["Movies", "Afrobeats", "Downloads", "eBooks", "MovieWorld", "Free Content"],
   openGraph: {
     title: "MediaHub - Your Digital Entertainment Hub",
     description: "Stream and download your favorite media in one click. No registration, just instant access.",

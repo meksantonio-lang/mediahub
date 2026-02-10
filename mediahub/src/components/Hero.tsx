@@ -7,7 +7,7 @@ export default function Hero() {
     <section className="h-screen bg-gradient-to-br from-black via-zinc-900 to-black text-white flex flex-col items-center justify-center gap-8">
       
       <h1 className="text-4xl md:text-6xl font-bold text-center">
-        Welcome to <span className="text-purple-500">MediaHub</span>
+        Welcome to <span className="text-purple-500">MovieWorld</span>
       </h1>
 
       <p className="text-gray-400 text-center max-w-xl">
