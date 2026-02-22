@@ -9,5 +9,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@cloudflare/workers-types"],
+  },
 };
 export default nextConfig;
