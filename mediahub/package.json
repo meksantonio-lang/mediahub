@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:deploy": "npm run build && wrangler pages deploy .vercel/output/static"
   },
   "dependencies": {
     "lucide-react": "^0.563.0",

@@ -19,7 +19,7 @@ export default function MoviesPage() {
 
   // Fetch movies from your D1 database
   useEffect(() => {
-    fetch('https://movieworld.wuaze.com/api.php?action=getMovies')
+    fetch('/api/movies')
       .then(res => res.json())
       .then(data => {
         const moviesFromDb = data.result || [];
