@@ -1,29 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const moviesData = [
-  { id: 1, title: "Inception", genre: "Sci-Fi", year: 2010, cover: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000" },
-  { id: 2, title: "Interstellar", genre: "Sci-Fi", year: 2014, cover: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1000" },
-  { id: 3, title: "John Wick", genre: "Action", year: 2014, cover: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?q=80&w=1000" },
-  { id: 4, title: "Avengers: Endgame", genre: "Action", year: 2019, cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000" },
-  { id: 5, title: "The Godfather", genre: "Crime", year: 1972, cover: "https://images.unsplash.com/photo-1585647347483-22b66260dfff?q=80&w=1000" },
-  { id: 6, title: "Deadpool & Wolverine", genre: "18+", year: 2024, cover: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=1000" },
-];
+interface Movie {
+  id: string | number;
+  title: string;
+  genre: string;
+  cover?: string;
+  release_year?: string | number;
+}
 
 export default function MoviesPage() {
   const [query, setQuery] = useState("");
   const [genre, setGenre] = useState("All");
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch movies from your D1 database
+  useEffect(() => {
+    fetch('https://movieworld.wuaze.com/api.php?action=getMovies')
+      .then(res => res.json())
+      .then(data => {
+        const moviesFromDb = data.result || [];
+        setMovies(moviesFromDb);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching movies:', err);
+        setLoading(false);
+      });
+  }, []);
 
   // Filter movies based on search + genre
-  const filteredMovies = moviesData.filter((movie) => {
+  const filteredMovies = movies.filter((movie) => {
     const searchString = `${movie.title} ${movie.genre}`.toLowerCase();
     const matchesSearch = searchString.includes(query.toLowerCase());
     const matchesGenre = genre === "All" || movie.genre === genre;
 
     return matchesSearch && matchesGenre;
   });
+
+  // Extract unique genres from movies
+  const genres = ["All", ...new Set(movies.map(m => m.genre).filter(Boolean))];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <p className="text-xl">Loading movies...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white px-6 py-10">
@@ -42,7 +69,7 @@ export default function MoviesPage() {
 
       {/* Genre Filters */}
       <div className="flex gap-3 mb-10 flex-wrap">
-        {["All", "Action", "Sci-Fi", "Crime", "Horror", "18+"].map((g) => (
+        {genres.map((g) => (
           <button
             key={g}
             onClick={() => setGenre(g)}
@@ -68,7 +95,7 @@ export default function MoviesPage() {
             {/* Poster Section */}
             <div className="relative w-full aspect-[2/3] bg-zinc-800">
               <img
-                src={movie.cover}
+                src={movie.cover || "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000"}
                 alt={movie.title}
                 className="object-cover w-full h-full"
               />
@@ -84,8 +111,9 @@ export default function MoviesPage() {
                 {movie.title}
               </h2>
               <p className="text-xs text-zinc-500 mb-4">
-                {movie.genre} • {movie.year}
-              </p><div className="mt-auto">
+                {movie.genre || 'Unknown'} • {movie.release_year || 'N/A'}
+              </p>
+              <div className="mt-auto">
                 <div className="w-full bg-zinc-800 group-hover:bg-purple-600 text-center py-2 rounded-lg text-sm font-semibold transition-colors">
                   Watch Now
                 </div>
@@ -96,7 +124,9 @@ export default function MoviesPage() {
 
         {filteredMovies.length === 0 && (
           <div className="text-center col-span-full py-20">
-            <p className="text-zinc-500 text-lg">No movies found for "{query}"</p>
+            <p className="text-zinc-500 text-lg">
+              {movies.length === 0 ? "No movies in your library yet." : `No movies found for "${query}"`}
+            </p>
           </div>
         )}
       </div>
