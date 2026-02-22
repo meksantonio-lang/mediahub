@@ -5,5 +5,5 @@ pages_build_output_dir = ".vercel/output/static"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "mediahub-db"
+database_name = "movieworld_db"
 database_id = "ca2d92bc-8c59-48ec-9d72-1561e4627cdf"
