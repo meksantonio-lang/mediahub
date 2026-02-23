@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx open-next@latest build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "npm run build && wrangler pages deploy .open-next/static"
+    "lint": "next lint"
   },
   "dependencies": {
     "lucide-react": "^0.563.0",
@@ -16,7 +15,6 @@
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250122.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -24,7 +22,6 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
-    "open-next": "latest",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
