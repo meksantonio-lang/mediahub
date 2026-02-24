@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 export const runtime = 'edge';
 
 const sampleMovies = [
@@ -74,8 +76,5 @@ const sampleMovies = [
 ];
 
 export async function GET() {
-  const body = JSON.stringify({ result: sampleMovies });
-  return new Response(body, {
-    headers: { 'content-type': 'application/json; charset=utf-8' }
-  });
+  return NextResponse.json({ result: sampleMovies });
 }

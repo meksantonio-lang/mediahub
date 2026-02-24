@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import Link from "next/link";
 import { ArrowLeft, Download, Heart, Play, ShieldCheck, Info } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";

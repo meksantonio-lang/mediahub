@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { use, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download, Heart, Music2, Disc } from "lucide-react";
