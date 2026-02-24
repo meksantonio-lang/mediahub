@@ -1,23 +1,11 @@
 import { NextRequest } from 'next/server';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest) {
   try {
-    // Try D1 first
-    try {
-      const DB = (globalThis as any).DB;
-      if (DB) {
-        const { results } = await DB.prepare(
-          'SELECT * FROM movies ORDER BY id DESC'
-        ).all();
-        if (results && results.length > 0) {
-          return Response.json({ result: results });
-        }
-      }
-    } catch (dbError) {
-      console.warn('D1 query failed, using hardcoded movies:', dbError);
-    }
+    // Hardcoded movies for now
+    // D1 bindings not working with Cloudflare Pages yet
 
     // Hardcoded fallback movies
     const sampleMovies = [
@@ -95,10 +83,45 @@ export async function GET(request: NextRequest) {
 
     return Response.json({ result: sampleMovies });
   } catch (error) {
-    console.error('Error fetching movies:', error);
-    return Response.json({ 
-      result: [],
-      error: 'Failed to fetch movies' 
-    }, { status: 500 });
+    console.error('Error in movies API:', error);
+    // Always return valid JSON with hardcoded movies as fallback
+    const fallbackMovies = [
+      {
+        id: 1,
+        title: 'Inception',
+        genre: 'Sci-Fi',
+        cover: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=750&fit=crop',
+        release_year: 2010
+      },
+      {
+        id: 2,
+        title: 'The Dark Knight',
+        genre: 'Action',
+        cover: 'https://images.unsplash.com/photo-1495632066640-f1d475d6b18f?w=500&h=750&fit=crop',
+        release_year: 2008
+      },
+      {
+        id: 3,
+        title: 'Interstellar',
+        genre: 'Sci-Fi',
+        cover: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=750&fit=crop',
+        release_year: 2014
+      },
+      {
+        id: 4,
+        title: 'Pulp Fiction',
+        genre: 'Crime',
+        cover: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=750&fit=crop',
+        release_year: 1994
+      },
+      {
+        id: 5,
+        title: 'The Matrix',
+        genre: 'Sci-Fi',
+        cover: 'https://images.unsplash.com/photo-1516573024350-2ea5fec44e47?w=500&h=750&fit=crop',
+        release_year: 1999
+      }
+    ];
+    return Response.json({ result: fallbackMovies });
   }
 }

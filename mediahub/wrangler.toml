@@ -1,16 +1,8 @@
 name = "mediahub"
 compatibility_date = "2024-01-01"
-
-[env.production]
-build = { command = "npm run build", cwd = "." }
-
-env = { NEXT_PUBLIC_API_URL = "https://movieworld.wuaze.com" }
+pages_build_output_dir = ".next"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "movieworld_db"
 database_id = "ca2d92bc-8c59-48ec-9d72-1561e4627cdf"
-
-[build]
-command = "npm run build"
-cwd = "."
