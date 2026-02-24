@@ -47,10 +47,7 @@ export default function MoviesPage() {
     return matchesSearch && matchesGenre;
   });
 
-  // Extrdiv className="text-center">
-          <p className="text-xl mb-4">Loading movies...</p>
-          <p className="text-sm text-zinc-500">If this takes too long, check your browser console (F12)</p>
-        </div
+  // Extract unique genres for filter buttons
   const genres = ["All", ...new Set(movies.map(m => m.genre).filter(Boolean))];
 
   if (loading) {
