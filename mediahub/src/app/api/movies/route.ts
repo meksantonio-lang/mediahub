@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
@@ -75,6 +76,28 @@ const sampleMovies = [
   }
 ];
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  try {
+    // Try to access D1 binding from Cloudflare Pages environment
+    const env = (request as any).env || (process.env as any);
+    const DB = env?.DB;
+    
+    if (DB) {
+      console.log('D1 binding found, querying database...');
+      const { results } = await DB.prepare('SELECT * FROM movies ORDER BY id DESC').all();
+      
+      if (results && results.length > 0) {
+        console.log(`Loaded ${results.length} movies from D1`);
+        return NextResponse.json({ result: results });
+      }
+      console.log('D1 query returned no results, using fallback');
+    } else {
+      console.log('No D1 binding found, using fallback movies');
+    }
+  } catch (error) {
+    console.error('Error accessing D1:', error);
+  }
+  
+  // Fallback to hardcoded movies
   return NextResponse.json({ result: sampleMovies });
 }
