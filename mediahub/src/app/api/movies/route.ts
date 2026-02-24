@@ -1,11 +1,10 @@
 import { NextRequest } from 'next/server';
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   try {
-    // Hardcoded movies for now
-    // D1 bindings not working with Cloudflare Pages yet
+    // Return hardcoded movies - D1 not available in edge runtime
 
     // Hardcoded fallback movies
     const sampleMovies = [
