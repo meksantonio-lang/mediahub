@@ -19,10 +19,16 @@ export default function MoviesPage() {
 
   // Fetch movies from your D1 database
   useEffect(() => {
+    console.log('Fetching movies from /api/movies...');
     fetch('/api/movies')
-      .then(res => res.json())
+      .then(res => {
+        console.log('API response status:', res.status);
+        return res.json();
+      })
       .then(data => {
+        console.log('API response data:', data);
         const moviesFromDb = data.result || [];
+        console.log('Movies loaded:', moviesFromDb.length);
         setMovies(moviesFromDb);
         setLoading(false);
       })
@@ -41,7 +47,10 @@ export default function MoviesPage() {
     return matchesSearch && matchesGenre;
   });
 
-  // Extract unique genres from movies
+  // Extrdiv className="text-center">
+          <p className="text-xl mb-4">Loading movies...</p>
+          <p className="text-sm text-zinc-500">If this takes too long, check your browser console (F12)</p>
+        </div
   const genres = ["All", ...new Set(movies.map(m => m.genre).filter(Boolean))];
 
   if (loading) {
@@ -124,9 +133,14 @@ export default function MoviesPage() {
 
         {filteredMovies.length === 0 && (
           <div className="text-center col-span-full py-20">
-            <p className="text-zinc-500 text-lg">
-              {movies.length === 0 ? "No movies in your library yet." : `No movies found for "${query}"`}
+            <p className="text-zinc-500 text-lg mb-4">
+              {movies.length === 0 ? "No movies loaded from API." : `No movies found for "${query}"`}
             </p>
+            {movies.length === 0 && (
+              <p className="text-sm text-zinc-600">
+                Check browser console (F12) for errors
+              </p>
+            )}
           </div>
         )}
       </div>
