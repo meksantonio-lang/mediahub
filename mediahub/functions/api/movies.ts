@@ -1,4 +1,4 @@
-export async function onRequest(context) {
+export async function onRequest(context: any) {
   const { MOVIEDB } = context.env;
   
   const movies = await MOVIEDB.prepare("SELECT * FROM movies").all();
