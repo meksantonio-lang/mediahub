@@ -80,11 +80,11 @@ export async function GET(request: NextRequest) {
   try {
     // Try to access D1 binding from Cloudflare Pages environment
     const env = (request as any).env || (process.env as any);
-    const DB = env?.DB;
+    const MOVIEDB = env?.MOVIEDB;
     
-    if (DB) {
+    if (MOVIEDB) {
       console.log('D1 binding found, querying database...');
-      const { results } = await DB.prepare('SELECT * FROM movies ORDER BY id DESC').all();
+      const { results } = await MOVIEDB.prepare('SELECT * FROM movies ORDER BY id DESC').all();
       
       if (results && results.length > 0) {
         console.log(`Loaded ${results.length} movies from D1`);
