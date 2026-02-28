@@ -1,103 +1,49 @@
-import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import { getRequestContext } from "@cloudflare/next-on-pages";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
-const sampleMovies = [
-  {
-    id: 1,
-    title: 'Inception',
-    genre: 'Sci-Fi',
-    cover: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=750&fit=crop',
-    release_year: 2010
-  },
-  {
-    id: 2,
-    title: 'The Dark Knight',
-    genre: 'Action',
-    cover: 'https://images.unsplash.com/photo-1495632066640-f1d475d6b18f?w=500&h=750&fit=crop',
-    release_year: 2008
-  },
-  {
-    id: 3,
-    title: 'Interstellar',
-    genre: 'Sci-Fi',
-    cover: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=750&fit=crop',
-    release_year: 2014
-  },
-  {
-    id: 4,
-    title: 'Pulp Fiction',
-    genre: 'Crime',
-    cover: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=750&fit=crop',
-    release_year: 1994
-  },
-  {
-    id: 5,
-    title: 'The Matrix',
-    genre: 'Sci-Fi',
-    cover: 'https://images.unsplash.com/photo-1516573024350-2ea5fec44e47?w=500&h=750&fit=crop',
-    release_year: 1999
-  },
-  {
-    id: 6,
-    title: 'Forrest Gump',
-    genre: 'Drama',
-    cover: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=750&fit=crop',
-    release_year: 1994
-  },
-  {
-    id: 7,
-    title: 'The Shawshank Redemption',
-    genre: 'Drama',
-    cover: 'https://images.unsplash.com/photo-1489599849228-bed96c3ee647?w=500&h=750&fit=crop',
-    release_year: 1994
-  },
-  {
-    id: 8,
-    title: 'The Godfather',
-    genre: 'Crime',
-    cover: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=750&fit=crop',
-    release_year: 1972
-  },
-  {
-    id: 9,
-    title: 'Avatar',
-    genre: 'Sci-Fi',
-    cover: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&h=750&fit=crop',
-    release_year: 2009
-  },
-  {
-    id: 10,
-    title: 'Titanic',
-    genre: 'Romance',
-    cover: 'https://images.unsplash.com/photo-1489599849228-bed96c3ee647?w=500&h=750&fit=crop',
-    release_year: 1997
-  }
-];
+type Movie = {
+  id: number;
+  title: string;
+  genre: string;
+  cover: string | null;
+  release_year: number | null;
+};
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    // Try to access D1 binding from Cloudflare Pages environment
-    const env = (request as any).env || (process.env as any);
-    const MOVIEDB = env?.MOVIEDB;
-    
-    if (MOVIEDB) {
-      console.log('D1 binding found, querying database...');
-      const { results } = await MOVIEDB.prepare('SELECT * FROM movies ORDER BY id DESC').all();
-      
-      if (results && results.length > 0) {
-        console.log(`Loaded ${results.length} movies from D1`);
-        return NextResponse.json({ result: results });
-      }
-      console.log('D1 query returned no results, using fallback');
-    } else {
-      console.log('No D1 binding found, using fallback movies');
+    const { env } = getRequestContext();
+    const db = (env as any)?.MOVIEDB as any;
+
+    if (!db) {
+      return NextResponse.json(
+        { error: "D1 binding 'MOVIEDB' not found." },
+        { status: 500 }
+      );
     }
+
+    const { results } = await (db
+      .prepare(
+        `SELECT id, title, genre, cover, release_year
+         FROM movies
+         ORDER BY id DESC`
+      )
+      .all() as Promise<{ results: Movie[] }>);
+
+    return NextResponse.json(
+      { result: results ?? [] },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        },
+      }
+    );
   } catch (error) {
-    console.error('Error accessing D1:', error);
+    return NextResponse.json(
+      { error: "Failed to fetch movies", detail: String(error) },
+      { status: 500 }
+    );
   }
-  
-  // Fallback to hardcoded movies
-  return NextResponse.json({ result: sampleMovies });
 }
