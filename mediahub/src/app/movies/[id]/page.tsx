@@ -55,6 +55,8 @@ const movies: Movie[] = [
   },
 ];
 
+export const runtime = 'edge';
+
 export default function MovieDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -107,7 +109,8 @@ export default function MovieDetailPage({ params }: { params: Promise<{ id: stri
         {/* Poster Image */}
         <div className="w-full md:w-[400px] shrink-0 aspect-[2/3] relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
           <img src={movie.image} alt={movie.title} className="object-cover w-full h-full" />
-        </div>{/* Content Section */}
+        </div>
+        {/* Content Section */}
         <div className="flex-1 mt-10 md:mt-0 flex flex-col justify-center">
           <div className="flex items-center gap-3 mb-4">
             <span className="bg-purple-600/20 text-purple-400 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest border border-purple-500/20">
@@ -141,33 +144,33 @@ export default function MovieDetailPage({ params }: { params: Promise<{ id: stri
             </button>
           </div>
 
-                    <div className="flex items-center gap-6 text-zinc-500 font-bold mt-6 mb-8 uppercase text-sm tracking-widest">
-                      <span>{movie.year}</span>
-                      <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full"></span>
-                      <span>2h 28m</span>
-                      <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full"></span>
-                    </div>
+          <div className="flex items-center gap-6 text-zinc-500 font-bold mt-6 mb-8 uppercase text-sm tracking-widest">
+            <span>{movie.year}</span>
+            <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full"></span>
+            <span>2h 28m</span>
+            <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full"></span>
+          </div>
           
-                    <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl mb-12">
-                      {movie.description}
-                    </p>
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl mb-12">
+            {movie.description}
+          </p>
           
-                    <div className="flex gap-4">
-                      <button className="flex items-center gap-3 bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 shadow-lg shadow-purple-600/50">
-                        <Play size={24} fill="white" />
-                        Watch Now
-                      </button>
-                      <button 
-                        onClick={handleDownload}
-                        disabled={isDownloading}
-                        className="flex items-center gap-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 disabled:opacity-50"
-                      >
-                        <Download size={24} />
-                        {isDownloading ? "Processing..." : "Download"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
+          <div className="flex gap-4">
+            <button className="flex items-center gap-3 bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 shadow-lg shadow-purple-600/50">
+              <Play size={24} fill="white" />
+              Watch Now
+            </button>
+            <button 
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="flex items-center gap-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-8 py-4 rounded-xl font-bold text-lg transition-all active:scale-95 disabled:opacity-50"
+            >
+              <Download size={24} />
+              {isDownloading ? "Processing..." : "Download"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

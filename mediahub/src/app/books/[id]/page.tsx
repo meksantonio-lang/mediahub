@@ -35,6 +35,8 @@ const books: Book[] = [
   }
 ];
 
+export const runtime = 'edge';
+
 export default function BookDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const { toggleFavorite, isFavorite } = useFavorites();
