@@ -13,3 +13,7 @@ compatibility_flags = ["nodejs_compat"]
 
 [env.production]
 compatibility_flags = ["nodejs_compat"]
+
+[[env.production.d1_databases]]
+binding = "MOVIEDB"
+database_name = "moviedb"

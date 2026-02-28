@@ -13,8 +13,25 @@ type Movie = {
 
 export async function GET() {
   try {
-    const { env } = getRequestContext();
-    const db = (env as any)?.MOVIEDB as any;
+    let db;
+    
+    try {
+      const { env } = getRequestContext();
+      db = (env as any)?.MOVIEDB;
+    } catch (e) {
+      console.log("Running in local dev mode - getRequestContext not available");
+      return NextResponse.json(
+        { result: [] },
+        {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+          },
+        }
+      );
+    }
 
     if (!db) {
       return NextResponse.json(
@@ -37,13 +54,31 @@ export async function GET() {
         status: 200,
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
         },
       }
     );
   } catch (error) {
+    console.error("API Error:", error);
     return NextResponse.json(
       { error: "Failed to fetch movies", detail: String(error) },
       { status: 500 }
     );
   }
+}
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {},
+    {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    }
+  );
 }
