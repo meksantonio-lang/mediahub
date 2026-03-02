@@ -1,6 +1,6 @@
 name = "mediahub"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".vercel/output"
 
 [[d1_databases]]
 binding = "MOVIEDB"
@@ -17,3 +17,4 @@ compatibility_flags = ["nodejs_compat"]
 binding = "MOVIEDB"
 database_name = "moviedb"
 database_id = "ca2d92bc-8c59-48ec-9d72-1561e4627cdf"
+
