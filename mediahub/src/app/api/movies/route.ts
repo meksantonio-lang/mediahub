@@ -17,7 +17,7 @@ export async function GET() {
     
     try {
       const { env } = getRequestContext();
-      db = (env as any)?.MOVIEDB;
+      db = (env as any)?.MOVIEDB || (env as any)?.DB;
     } catch (e) {
       console.log("Running in local dev mode - getRequestContext not available");
       return NextResponse.json(
@@ -35,7 +35,7 @@ export async function GET() {
 
     if (!db) {
       return NextResponse.json(
-        { error: "D1 binding 'MOVIEDB' not found." },
+        { error: "D1 binding not found. Expected 'MOVIEDB' or 'DB'." },
         { status: 500 }
       );
     }

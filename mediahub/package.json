@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy": "npm run build && wrangler pages deploy out --project-name mediahub",
+    "build:pages": "npx @cloudflare/next-on-pages@1",
+    "deploy": "npm run build:pages && wrangler pages deploy .vercel/output/static --project-name mediahub",
     "start": "next start",
     "lint": "next lint"
   },
