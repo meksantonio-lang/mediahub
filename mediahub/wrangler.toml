@@ -1,5 +1,10 @@
 name = "mediahub"
 compatibility_date = "2024-01-01"
+
+[build]
+command = "npm run build && npm run build:pages"
+cwd = "."
+
 pages_build_output_dir = ".vercel/output"
 
 [[d1_databases]]
