@@ -5,7 +5,7 @@ compatibility_date = "2024-01-01"
 command = "npm run build && npm run build:pages"
 cwd = "."
 
-pages_build_output_dir = ".vercel/output"
+pages_build_output_dir = ".vercel/output/static"
 
 [[d1_databases]]
 binding = "MOVIEDB"
