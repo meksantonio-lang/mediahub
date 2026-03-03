@@ -35,20 +35,8 @@ jobs:
       - name: Build for Cloudflare Pages
         run: npm run build:pages
 
-      - name: Debug: Check paths
-        run: |
-          pwd
-          ls -la .vercel/output/static 2>&1 | head -5 || echo "Static dir not found"
-          which wrangler
-          echo "CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID"
-
       - name: Deploy to Cloudflare Pages
-        run: npm run deploy 2>&1 | tee deploy.log
-        working-directory: mediahub
+        run: npm run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Check deploy log
-        if: always()
-        run: tail -50 deploy.log || echo "No deploy log found"
