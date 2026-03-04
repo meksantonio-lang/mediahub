@@ -1,8 +1,8 @@
 <?php
 // Configuration for MovieWorld
-$apiToken = 'ixRQAlmIfiOD0boqhizuXMuHXMojb9Y3XOaWPxV9';
-$accountId = 'a289eda8bf3a62a1fab11e999615ad55';
-$databaseId = 'ca2d92bc-8c59-48ec-9d72-1516e4627cdf'; // From your screenshot
+$apiToken = getenv('CLOUDFLARE_API_TOKEN'); // Set this in your environment - never hardcode tokens
+$accountId = getenv('CLOUDFLARE_ACCOUNT_ID'); // Set this in your environment - never hardcode IDs
+$databaseId = getenv('CLOUDFLARE_DATABASE_ID'); // Set this in your environment - never hardcode IDs
 
 $query = "SELECT * FROM movies LIMIT 10;";
 

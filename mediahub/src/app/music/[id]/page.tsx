@@ -22,7 +22,7 @@ const tracks: Track[] = [
     artist: "Burna Boy",
     category: "Afrobeats", 
     image: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/3d/8d/62/3d8d6265-27a9-b3a1-002f-37014490f209/075679737960.jpg/600x600bb.jpg",
-    fileUrl: "PASTE_YOUR_LINK_HERE" 
+    fileUrl: "/sample.mp3" 
   },
   { 
     id: 2, 
@@ -30,7 +30,7 @@ const tracks: Track[] = [
     artist: "Rema",
     category: "Afrobeats", 
     image: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/91/92/79/91927977-94e8-8c10-85f0-61d53086780c/22UMGIM22312.rgb.jpg/600x600bb.jpg",
-    fileUrl: "PASTE_YOUR_LINK_HERE"
+    fileUrl: "/sample.mp3"
   },
   { 
     id: 3, 
@@ -38,7 +38,7 @@ const tracks: Track[] = [
     artist: "The Weeknd",
     category: "Global Pop", 
     image: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/80/37/10/8037107c-9b5d-0775-4074-68c1605a2712/16UMGIM62220.rgb.jpg/600x600bb.jpg",
-    fileUrl: "PASTE_YOUR_LINK_HERE"
+    fileUrl: "/sample.mp3"
   },
   { 
     id: 4, 
@@ -46,7 +46,7 @@ const tracks: Track[] = [
     artist: "Davido",
     category: "Afrobeats", 
     image: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/44/e9/8b/44e98b3a-5829-0797-e81a-6379f82110c1/196589947938.jpg/600x600bb.jpg",
-    fileUrl: "PASTE_YOUR_LINK_HERE"
+    fileUrl: "/sample.mp3"
   }
 ];
 
