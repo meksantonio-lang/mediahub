@@ -40,4 +40,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy mediahub/.vercel/output --project-name mediahub-5wd --branch main
+          command: pages deploy mediahub/.vercel/output/static --project-name mediahub-5wd --branch main --functions mediahub/.vercel/output/functions
