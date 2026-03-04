@@ -36,7 +36,8 @@ jobs:
         run: npm run build:pages
 
       - name: Prepare functions for deployment
-        run: cp -r mediahub/functions .vercel/output/functions || true
+      - name: Prepare functions for deployment
+        run: cp -r functions .vercel/output/functions || true
 
       - name: Deploy with Wrangler CLI
         run: npx wrangler pages deploy .vercel/output --project-name mediahub-5wd --branch main
