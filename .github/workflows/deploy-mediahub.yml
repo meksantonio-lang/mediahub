@@ -37,7 +37,9 @@ jobs:
 
       - name: Prepare functions for deployment
       - name: Prepare functions for deployment
-        run: cp -r functions .vercel/output/functions || true
+        run: |
+          mkdir -p .vercel/output/functions/api
+          cp -r functions/api/* .vercel/output/functions/api/ || true
 
       - name: Deploy with Wrangler CLI
         run: npx wrangler pages deploy .vercel/output --project-name mediahub-5wd --branch main
