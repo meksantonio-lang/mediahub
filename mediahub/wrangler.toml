@@ -10,7 +10,7 @@ pages_build_output_dir = ".vercel/output"
 
 [[d1_databases]]
 binding = "MOVIEDB"
-database_name = "movieworld_db"
+database_name = "moviedb"
 database_id = "ca2d92bc-8c59-48ec-9d72-1561e4627cdf"
 
 [env.preview]
