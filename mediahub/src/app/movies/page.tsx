@@ -12,6 +12,9 @@ interface Movie {
 }
 
 export default function MoviesPage() {
+
+export const dynamic = 'force-dynamic';
+
   const [query, setQuery] = useState("");
   const [genre, setGenre] = useState("All");
   const [movies, setMovies] = useState<Movie[]>([]);

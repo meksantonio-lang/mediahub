@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Book as BookIcon } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 type Book = {
   id: number;
   title: string;

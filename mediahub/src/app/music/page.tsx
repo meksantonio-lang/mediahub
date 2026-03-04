@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Play } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 type Track = {
   id: number;
   title: string;

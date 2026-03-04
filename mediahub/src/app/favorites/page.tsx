@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useFavorites } from "@/context/FavoritesContext";
 import { Trash2, Film, Book, Music, ArrowRight } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default function FavoritesPage() {
   const { favorites, toggleFavorite } = useFavorites();
 
