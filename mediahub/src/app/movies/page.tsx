@@ -11,9 +11,9 @@ interface Movie {
   release_year?: string | number;
 }
 
-export default function MoviesPage() {
-
 export const dynamic = 'force-dynamic';
+
+export default function MoviesPage() {
 
   const [query, setQuery] = useState("");
   const [genre, setGenre] = useState("All");
