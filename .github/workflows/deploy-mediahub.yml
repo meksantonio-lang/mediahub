@@ -13,7 +13,7 @@ jobs:
       deployments: write
     defaults:
       run:
-        working-directory: mediahub
+        working-directory: .
 
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: mediahub/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -35,7 +35,6 @@ jobs:
       - name: Build for Cloudflare Pages
         run: npm run build:pages
 
-      - name: Prepare functions for deployment
       - name: Prepare functions for deployment
         run: |
           mkdir -p .vercel/output/functions/api
