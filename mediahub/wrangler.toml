@@ -1,11 +1,11 @@
-name = "mediahub-5wd"
-compatibility_date = "2024-01-01"
+name = "mediahub"
+compatibility_date = "2026-03-15"
 
 [build]
-command = "npm run build && npm run build:pages"
+command = "npm run build"
 cwd = "./mediahub"
 
-pages_build_output_dir = ".vercel/output"
+pages_build_output_dir = "out"
 
 [[d1_databases]]
 binding = "MOVIEDB"

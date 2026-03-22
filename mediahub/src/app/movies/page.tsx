@@ -28,7 +28,7 @@ export default function MoviesPage() {
         console.log('API response status:', res.status);
         return res.json();
       })
-      .then(data => {
+      .then((data: any) => {
         console.log('API response data:', data);
         const moviesFromDb = data.result || [];
         console.log('Movies loaded:', moviesFromDb.length);
