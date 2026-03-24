@@ -20,6 +20,5 @@ compatibility_flags = ["nodejs_compat"]
 
 [[env.production.d1_databases]]
 binding = "MOVIEDB"
-database_name = "moviedb"
+database_name = "movieworld_db"
 database_id = "ca2d92bc-8c59-48ec-9d72-1561e4627cdf"
-
